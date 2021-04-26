@@ -11,7 +11,12 @@ function setData(jsonData){
 }
 
 xhr.onreadystatechange = function(){
+    console.log(this.readyState);
     if (this.readyState == 4 && this.status == 200){
        setData(JSON.parse(this.responseText));
     }
 };
+
+setTimeout(function(){  // The setTimeout function takes two parameters i.e. in this case a function with a console log and a timeout of 500ms
+    console.log(data);  // this give the object data time to be loaded before console.log(data); is run, otherwise it may return nothing if the object data hasn't yet loaded.
+}, 500);
