@@ -1,24 +1,35 @@
-var xhr = new XMLHttpRequest();
-var data;
+function getData(cb){   // cb stands for 'call back'
+    var xhr = new XMLHttpRequest();
 
-xhr.open('GET', 'https://ci-swapi.herokuapp.com/api/');
-xhr.send();
+    xhr.open('GET', 'https://ci-swapi.herokuapp.com/api/');
+    xhr.send();
 
-// function setData(jsonData){
-    // data = jsonData;
-    // console.log(data);  
-    // this doesn't solve the problem, now all the code for the site needs to be enclosed in this "setData" function instead of the "onreadystatechange" function
-// } 
-// In video 5 after we add 'setTimeout()' the tutor then instructs to remove the 'setData' function and revert back to the original code we had in the 'xhr function'
+    xhr.onreadystatechange = function(){
+        if (this.readyState == 4 && this.status == 200){
+        cb(JSON.parse(this.responseText));  // So what this basically means is that when our script gets to this point, it's going to run the function that we passed in to getData as an argument.
+        }
+    };
+}
 
-xhr.onreadystatechange = function(){
-    // console.log(this.readyState);  Now we remove this line of code as well
-    if (this.readyState == 4 && this.status == 200){
-       // setData(JSON.parse(this.responseText));  Now we remove this again and amend it to the code below
-       data = JSON.parse(this.responseText);
-    }
-};
+// Function
+function printDataToConsole(data){
+    console.log(data);
+}
 
-setTimeout(function(){  // The setTimeout function takes two parameters i.e. in this case a function with a console log and a timeout of 500ms
-    console.log(data);  // this give the object data time to be loaded before console.log(data); is run, otherwise it may return nothing if the object data hasn't yet loaded.
-}, 500);
+//  // Argument
+//  getData(function(data){
+//      console.log(data);
+//  });
+
+getData(printDataToConsole);
+
+// So as you can see, callback functions are very useful.
+// They get around the problem of having to use timeouts.
+// They still allow us full control over our data because they're only invoked when we actually want them to be.
+
+// So in this unit, we've looked at how to speak to our API using JavaScript.
+// We've seen how to get our response text back as a string and how to turn it into JSON format.
+// We've looked at different readyStates and HTTP status codes.
+// And finally, we've seen how to use both timeouts and callback functions to get our data displaying when we want it to.
+// Now that we know how to get the data and how to parse it, let's start doing something useful with it.
+// We'll have a look at that in our next unit.
