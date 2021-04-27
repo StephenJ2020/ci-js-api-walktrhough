@@ -13,9 +13,30 @@ function getData(type, cb){   // cb stands for 'call back'
     };
 }
 
+    /*    function writeToDocument(type){
+            getData(type, function(data){
+                // console.dir(data);  // Print the contents of the object to a directory within the console window    
+                data = data.results;
+
+                data.forEach(function(item){  // A For Loop
+                    // document.getElementById('data').innerHTML = item.name;  // Now that we have this unpacked into JSON format, we can just do "item.name".
+                                                                            // = will over-write the previous data, I need to do a "+=".
+                    document.getElementById('data').innerHTML += '<p>' + item.name + '</p>';  // But this list contents of each button in one long list
+                })
+                
+            });
+        }
+    */
+
 function writeToDocument(type){
-    getData(type, function(data){
-        console.dir(data);  // Print the contents of the object to a directory within the console window    
-        document.getElementById('data').innerHTML = data.results;
+    var el = document.getElementById('data');  // el short for element but cant use element as a variable name as it is a reserved word.
+    el.innerHTML = '';
+    getData(type, function(data){  
+        data = data.results;
+
+        data.forEach(function(item){  // A For Loop
+            el.innerHTML += '<p>' + item.name + '</p>';
+        })
+        
     });
 }
