@@ -36,8 +36,8 @@ function writeToDocument(type){
             var dataRow = [];
 
             Object.keys(item).forEach(function(key){
-                var rowData = item[key].toString();
-                var truncatedData = rowData.subString(0, 15)
+                var rowData = item[key].toString();  // see text block 2 below, but code doesn't work for me when I run it: TypeError: rowData.subString is not a function
+                var truncatedData = rowData.substring(0, 15);
                 dataRow.push(`<td>${truncatedData}</td>`);
             });
             tableRows.push(`<tr>${dataRow}</tr>`);  // Added a template literal here with the hmtl code for a Table Row - see text block 1 below
