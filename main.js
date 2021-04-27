@@ -15,6 +15,7 @@ function getData(type, cb){   // cb stands for 'call back'
 
 function writeToDocument(type){
     getData(type, function(data){
-        document.getElementById('data').innerHTML = data;
+        console.dir(data);  // Print the contents of the object to a directory within the console window    
+        document.getElementById('data').innerHTML = data.results;
     });
 }
